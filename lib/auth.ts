@@ -19,3 +19,7 @@ export function createToken(payload:any) {
     expiresIn: "7d",
   });
 }
+
+export const verifyToken=(token:string)=>{
+  jwt.verify(token,JWT_SECRET);
+}

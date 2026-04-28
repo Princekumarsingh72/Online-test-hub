@@ -1,49 +1,50 @@
 "use client"
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-export default function SignupPage() {
-     const router=useRouter();
-    const [name, setName] = useState("");
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+export default function SigninPage() {
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [role, setRole] = useState("STUDENT");
     const [error, setError] = useState("");
     const [showAlert, setShowAlert] = useState(false);
+    const router = useRouter();
 
-    const signup = async () => {
-        const res = await fetch("/api/auth/signup", {
+    const signin = async () => {
+        const res = await fetch("/api/auth/signin", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, email, password, role })
-        });
+            body: JSON.stringify({ email, password })
+        })
+
         const text = await res.text();
         let data;
         try {
             data = JSON.parse(text);
-        }
-        catch {
-            setError("Server Error");
+        } catch {
+            setError("Server error hai");
             return;
         }
+
         if (!res.ok) {
             setError(data.error);
             return;
         }
-
-        setShowAlert(true);
-        setName("");
         setEmail("");
         setPassword("");
+        setShowAlert(true);
+        // setError("");
         setTimeout(() => {
             setShowAlert(false);
         }, 2000);
 
-router.push("/auth/signin");
-    }
-
-
+        if (data.role == "ADMIN") {
+            console.log("Welcome to Admin Dashboard");
+        }
+        else {
+            console.log("Welcome to Student Dashboard");
+        }
+    };
     return (
-
         <div className="min-h-screen bg-[#0f172a] flex items-center justify-center relative overflow-hidden">
 
             <div className="absolute inset-0 bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#020617]" />
@@ -58,38 +59,31 @@ router.push("/auth/signin");
 
             <div className="relative z-10 w-[420px] p-8 rounded-3xl border border-white/20 bg-white/10 backdrop-blur-xl shadow-2xl">
                 <h2 className="text-3xl text-white text-center mb-6 font-semibold">
-                    SignUP
+                    SignIN
                 </h2>
                 <div className="flex flex-col gap-4">
-                    <input type="text"
-                        placeholder="Name"
-                        className="bg-white/10 text-white placeholder-gray-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        value={name}
-                        onChange={(e) => {
-                            setName(e.target.value);
-                            setError("");
-                        }}
-                    />
-                    <input type="email"
+                    <input
+                        type="email"
                         placeholder="Email"
-                        className="bg-white/10 text-white placeholder-gray-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
                         value={email}
                         onChange={(e) => {
                             setEmail(e.target.value);
                             setError("");
                         }}
-                    />
-                    <input type="password"
-                        placeholder="Password"
                         className="bg-white/10 text-white placeholder-gray-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    />
+                    <input
+                        type="password"
+                        placeholder="Password"
                         value={password}
                         onChange={(e) => {
                             setPassword(e.target.value);
                             setError("");
                         }}
+                        className="bg-white/10 text-white placeholder-gray-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
                     />
-                    <button className="bg-blue-500 hover:bg-blue-600 transition text-white py-3 rounded-xl font-medium" onClick={signup}>
-                        SignUp
+                    <button className="bg-blue-500 hover:bg-blue-600 transition text-white py-3 rounded-xl font-medium" onClick={signin}>
+                        SignIN
                     </button>
                     {error && <p className="text-sm text-red-800 text-center">{error}</p>}
                 </div>
@@ -98,6 +92,6 @@ router.push("/auth/signin");
                 ✅ Signup Successfully
             </div>}
         </div>
-    )
+    );
 
 }
