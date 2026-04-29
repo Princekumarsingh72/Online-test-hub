@@ -23,3 +23,6 @@ export function createToken(payload:any) {
 export const verifyToken=(token:string)=>{
   jwt.verify(token,JWT_SECRET);
 }
+
+
+    

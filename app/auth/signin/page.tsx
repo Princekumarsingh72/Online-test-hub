@@ -1,13 +1,12 @@
 "use client"
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useState } from "react";
+
 export default function SigninPage() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [showAlert, setShowAlert] = useState(false);
-    const router = useRouter();
 
     const signin = async () => {
         const res = await fetch("/api/auth/signin", {
@@ -85,6 +84,7 @@ export default function SigninPage() {
                     <button className="bg-blue-500 hover:bg-blue-600 transition text-white py-3 rounded-xl font-medium" onClick={signin}>
                         SignIN
                     </button>
+
                     {error && <p className="text-sm text-red-800 text-center">{error}</p>}
                 </div>
             </div>
