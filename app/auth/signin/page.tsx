@@ -20,7 +20,7 @@ export default function SigninPage() {
         try {
             data = JSON.parse(text);
         } catch {
-            setError("Server error hai");
+            setError("Server error");
             return;
         }
 

@@ -25,4 +25,17 @@ export const verifyToken=(token:string)=>{
 }
 
 
+export const verifyAdmin = (req: Request) => {
+  const token = req.headers.get("authorization")?.split(" ")[1];
+
+  if (!token) throw new Error("Unauthorized");
+
+  const decoded: any = jwt.verify(token, process.env.JWT_SECRET!);
+
+  if (decoded.role !== "ADMIN") {
+    throw new Error("Access denied");
+  }
+
+  return decoded;
+};
     
