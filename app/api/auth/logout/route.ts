@@ -8,7 +8,6 @@ export default function Logout(req: Request) {
                 message: "Logout Successfully"
             }
         )
-
         response.cookies.set("token", "", {
             httpOnly: true,
             path: "/",

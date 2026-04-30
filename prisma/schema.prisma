@@ -18,11 +18,164 @@ enum Role {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  name     String
-  email    String @unique
-  password String
-  role     Role   @default(STUDENT)
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(STUDENT)
 
   createdAt DateTime @default(now())
+
+  questions       Question[]
+  tests           Test[]
+  attempts        TestAttempt[]
+  performances    Performance[]
+}
+
+model Subject {
+  id        Int      @id @default(autoincrement())
+  name      String
+
+  questions Question[]
+  tests     Test[]
+  performance Performance[]
+}
+model Question {
+  id            Int      @id @default(autoincrement())
+  question      String
+
+  optionA       String
+  optionB       String
+  optionC       String
+  optionD       String
+
+  correctOption Option
+
+  difficulty    Difficulty
+
+  // Optional default marks
+  defaultMarks  Int?     
+
+  subjectId     Int
+  subject       Subject  @relation(fields: [subjectId], references: [id])
+
+  createdById   Int
+  createdBy     User     @relation(fields: [createdById], references: [id])
+
+  testQuestions TestQuestion[]
+  answers       StudentAnswer[]
+
+  createdAt     DateTime @default(now())
+}
+enum Option {
+  A
+  B
+  C
+  D
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+model Test {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+
+  duration    Int      // in minutes
+  totalMarks  Int
+
+  startTime   DateTime
+  endTime     DateTime
+
+  subjectId   Int
+  subject     Subject  @relation(fields: [subjectId], references: [id])
+
+  createdById Int
+  createdBy   User     @relation(fields: [createdById], references: [id])
+
+  testQuestions TestQuestion[]
+  attempts      TestAttempt[]
+
+  createdAt   DateTime @default(now())
+}
+model TestQuestion {
+  id         Int @id @default(autoincrement())
+
+  testId     Int
+  test       Test @relation(fields: [testId], references: [id], onDelete: Cascade)
+
+  questionId Int
+  question   Question @relation(fields: [questionId], references: [id])
+
+  // FINAL marks used in this test
+  marks      Int
+
+  @@unique([testId, questionId])
+}
+model TestAttempt {
+  id        Int      @id @default(autoincrement())
+
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+
+  testId    Int
+  test      Test     @relation(fields: [testId], references: [id])
+
+  startTime DateTime
+  endTime   DateTime?
+
+  status    AttemptStatus @default(IN_PROGRESS)
+
+  answers   StudentAnswer[]
+  result    Result?
+
+  createdAt DateTime @default(now())
+}
+enum AttemptStatus {
+  IN_PROGRESS
+  COMPLETED
+}
+model StudentAnswer {
+  id          Int @id @default(autoincrement())
+
+  attemptId   Int
+  attempt     TestAttempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+
+  questionId  Int
+  question    Question @relation(fields: [questionId], references: [id])
+
+  selectedOption Option
+  isCorrect      Boolean
+
+  createdAt   DateTime @default(now())
+}
+model Result {
+  id              Int @id @default(autoincrement())
+
+  attemptId       Int @unique
+  attempt         TestAttempt @relation(fields: [attemptId], references: [id])
+
+  totalQuestions  Int
+  correctAnswers  Int
+  wrongAnswers    Int
+
+  score           Int
+  percentage      Float
+
+  createdAt       DateTime @default(now())
+}
+model Performance {
+  id         Int @id @default(autoincrement())
+
+  userId     Int
+  user       User @relation(fields: [userId], references: [id])
+
+  subjectId  Int
+  subject    Subject @relation(fields: [subjectId], references: [id])
+
+  totalTests Int
+  avgScore   Float
 }

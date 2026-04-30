@@ -12,40 +12,32 @@ export async function POST(req: Request) {
                 { status: 409 }
             )
         }
-
         const existing = await db.user.findUnique({
             where: {
                 email: email
             }
         })
-
-
         if (!existing) {
             return NextResponse.json(
                 { error: "User not Found" },
                 { status: 401 }
             )
         }
-
         const isValid = await comparePassword(password, existing.password);
-
         if (!isValid) {
             return NextResponse.json(
                 { error: "Password does not match" },
                 { status: 401 }
             )
         }
-
         const token = await createToken({
             id: existing.id,
             role: existing.role
         })
-
         const res = NextResponse.json({
             success: true,
             role: existing.role
         })
-
         res.cookies.set("token", token, {
             httpOnly: true,
             path: "/"
