@@ -4,7 +4,9 @@ import { db } from "@/lib/db";
 import { verifyAdmin } from "@/lib/auth";
 
 export async function POST(req: Request) {
-  // verifyAdmin(req);
+  
+  try{
+   await verifyAdmin();
 
   const { name } = await req.json();
 
@@ -13,4 +15,9 @@ export async function POST(req: Request) {
   });
 
   return Response.json(subject);
-}
+}catch(error:any){
+  return Response.json(
+    {error:error.message || "Something went worng"},
+    {status:500}
+  );
+}}

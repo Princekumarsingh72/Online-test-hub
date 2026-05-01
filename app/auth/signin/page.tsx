@@ -1,8 +1,8 @@
 "use client"
 import { useState } from "react";
-
+import { useRouter } from "next/router";
 export default function SigninPage() {
-
+const router=useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -38,6 +38,7 @@ export default function SigninPage() {
 
         if (data.role == "ADMIN") {
             console.log("Welcome to Admin Dashboard");
+            router.push("/admin/dashboard")
         }
         else {
             console.log("Welcome to Student Dashboard");

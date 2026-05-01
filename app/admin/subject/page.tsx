@@ -7,42 +7,39 @@ export default function Subject() {
     const [showAlert, setShowAlert] = useState(false);
     
     const subject = async () => {
-const token = localStorage.getItem("token");
-        const res = await fetch("/api/subjects", {
+        setError("");
+
+try{       
+const res = await fetch("/api/subjects", {
             method: "POST",
+            credentials:"include",
             headers: { 
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            
             },
             body: JSON.stringify({name:subName})
 
         });
-        const text = await res.text();
-        let data;
-        try {
-            data = JSON.parse(text);
-
-        } catch {
-            setError("Server error");
-            console.log("err");
-            return;
-        }
-        if (!res.ok) {
+        const data = await res.json();
+         if (!res.ok) {
             setError(data.error);
-             console.log("err2");
             return;
         }
+      
         setSubName("");
         setShowAlert(true)
         setTimeout(() => {
             setShowAlert(false)
         }, 2000);
     }
+    catch(err) {
+            setError("Server error");
+           
+        }
+    };
     return (
         <div className="min-h-screen bg-[#0f172a] flex items-center justify-center relative overflow-hidden">
 
-            <div className="absolute w-62 h-62 bg-blue-400 rounded-full blur-[6px] opacity-100 right-70 bottom-0"></div>
+           
 
             <div className="relative z-10 w-[420px] p-8 rounded-3xl border border-white/20 bg-white/10 backdrop-blur-xl shadow-2xl">
                 <h2 className="text-3xl text-white text-center mb-6 font-semibold">

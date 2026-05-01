@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { cookies } from "next/headers";
 
 const JWT_SECRET=process.env.JWT_SECRET!;
 
@@ -25,12 +26,14 @@ export const verifyToken=(token:string)=>{
 }
 
 
-export const verifyAdmin = (req: Request) => {
-  const token = req.headers.get("authorization")?.split(" ")[1];
+export const verifyAdmin =async () => {
+  const cookieStore = await cookies();   // ✅ server-only
+
+  const token = cookieStore.get("token")?.value;
 
   if (!token) throw new Error("Unauthorized");
 
-  const decoded: any = jwt.verify(token, process.env.JWT_SECRET!);
+  const decoded: any = jwt.verify(token, JWT_SECRET);
 
   if (decoded.role !== "ADMIN") {
     throw new Error("Access denied");
