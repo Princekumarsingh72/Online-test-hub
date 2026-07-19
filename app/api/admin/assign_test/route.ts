@@ -18,7 +18,7 @@ export async function POST(req: Request) {
       marks: Number(marks ?? 1), // default marks = 1
     }));
 
-    await db.testQuestion.createMany({
+    await db.testquestion.createMany({
       data,
       skipDuplicates: true,
     });
