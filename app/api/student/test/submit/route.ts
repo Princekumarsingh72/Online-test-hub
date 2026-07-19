@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
         id: Number(testId),
       },
       include: {
-        testQuestions: {
+        testquestion: {
           include: {
             question: true,
           },
@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Create Attempt
-    const attempt = await db.testAttempt.create({
+    const attempt = await db.testattempt.create({
       data: {
         testId: Number(testId),
         userId: Number(userId),
@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
     let score = 0;
 
     // Save every answer
-    for (const item of test.testQuestions) {
+    for (const item of test.testquestion) {
       const question = item.question;
 
       // Student selected option
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
         wrongAnswers++;
       }
 
-      await db.studentAnswer.create({
+      await db.studentanswer.create({
         data: {
           attemptId: attempt.id,
           questionId: question.id,
@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    const totalQuestions = test.testQuestions.length;
+    const totalQuestions = test.testquestion.length;
 
     const percentage =
       totalQuestions === 0

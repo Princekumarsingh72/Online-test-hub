@@ -14,10 +14,10 @@ export async function GET(
         attemptId: Number(attemptId),
       },
       include: {
-        attempt: {
+        testattempt: {
           include: {
             test: true,
-            answers: {
+            studentanswer: {
               include: {
                 question: true,
               },

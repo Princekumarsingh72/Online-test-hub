@@ -7,15 +7,15 @@ export async function GET() {
     const tests = await db.test.findMany({
   include: {
     subject: true,
-    testQuestions: true,
+    testquestion: true,
   },
 });
 
-const data = tests.map((test) => ({
+const data = tests.map((test:any) => ({
   id: test.id,
   title: test.title,
   subject: test.subject.name,
-  totalQuestions: test.testQuestions.length,
+  testquestion: test.testquestion.length,
 }));
 
     return NextResponse.json(data);

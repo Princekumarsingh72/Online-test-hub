@@ -14,7 +14,7 @@ export async function GET(
       },
       include: {
         subject: true,
-        testQuestions: {
+        testquestion: {
           include: {
             question: true,
           },
