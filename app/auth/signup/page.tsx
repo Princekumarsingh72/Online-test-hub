@@ -1,16 +1,26 @@
 "use client"
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 export default function SignupPage() {
-     const router=useRouter();
+    const router = useRouter();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [role, setRole] = useState("STUDENT");
     const [error, setError] = useState("");
     const [showAlert, setShowAlert] = useState(false);
+    const [showPass, setShowPass] = useState(false);
+
 
     const signup = async () => {
+        const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(email)) {
+            setError("Invalid Email");
+            return;
+        }
+
         const res = await fetch("/api/auth/signup", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -38,14 +48,18 @@ export default function SignupPage() {
             setShowAlert(false);
         }, 2000);
 
-router.push("/auth/signin");
+         }
+
+const handelLogin=()=>{
+       router.push("/auth/signin");
+}
+
+    const TooglePass = () => {
+        setShowPass(!showPass);
     }
 
-
     return (
-
         <div className="min-h-screen bg-[#0f172a] flex items-center justify-center relative overflow-hidden">
-
             <div className="absolute inset-0 bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#020617]" />
             <div className="absolute w-52 h-52 bg-cyan-500 rounded-full blur-[2px] opacity-100 top-0 left-90"></div>
             <div className="absolute w-60 h-60 bg-pink-500 rounded-full blur-[5px] opacity-60 bottom-0 left-70"></div>
@@ -69,6 +83,7 @@ router.push("/auth/signin");
                             setName(e.target.value);
                             setError("");
                         }}
+
                     />
                     <input type="email"
                         placeholder="Email"
@@ -79,18 +94,34 @@ router.push("/auth/signin");
                             setError("");
                         }}
                     />
-                    <input type="password"
-                        placeholder="Password"
-                        className="bg-white/10 text-white placeholder-gray-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        value={password}
-                        onChange={(e) => {
-                            setPassword(e.target.value);
-                            setError("");
-                        }}
-                    />
-                    <button className="bg-blue-500 hover:bg-blue-600 transition text-white py-3 rounded-xl font-medium" onClick={signup}>
+                    <div className="relative w-[100%]">
+                        <input
+                            type={showPass ? "text" : "password"}
+                            placeholder="Password"
+                            value={password}
+                            className="w-full bg-white/10 text-white placeholder-gray-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                                setError("");
+                            }}
+                        />
+
+                        <button
+                            type="button"
+                            onClick={TooglePass}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-white"
+                        >
+                            {showPass ? <FaEyeSlash /> : <FaEye />}
+                        </button>
+                    </div>
+                    <div className="w-[100%] flex justify-around">
+                    <button className="bg-blue-500 hover:bg-blue-600 transition text-white py-2 px-4 rounded-xl font-medium" onClick={signup}>
                         SignUp
                     </button>
+                    <button className="bg-blue-500 hover:bg-blue-600 transition text-white py-2 px-4 rounded-xl font-medium" onClick={handelLogin}>
+                        LogIN
+                    </button>
+                    </div>
                     {error && <p className="text-sm text-red-800 text-center">{error}</p>}
                 </div>
             </div>

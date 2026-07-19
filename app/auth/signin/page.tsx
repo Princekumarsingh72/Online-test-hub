@@ -1,12 +1,14 @@
 "use client"
 import { useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 export default function SigninPage() {
-const router=useRouter();
+    const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [showAlert, setShowAlert] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const signin = async () => {
         const res = await fetch("/api/auth/signin", {
@@ -35,15 +37,22 @@ const router=useRouter();
         setTimeout(() => {
             setShowAlert(false);
         }, 2000);
+        console.log(data.role);
 
         if (data.role == "ADMIN") {
             console.log("Welcome to Admin Dashboard");
             router.push("/admin/dashboard")
         }
-        else {
+        else if (data.role == "STUDENT") {
             console.log("Welcome to Student Dashboard");
+            router.push("/user/student/dashboard")
         }
     };
+
+    const singUP=()=>{
+        router.push("/auth/signup")
+    }
+
     return (
         <div className="min-h-screen bg-[#0f172a] flex items-center justify-center relative overflow-hidden">
 
@@ -72,20 +81,33 @@ const router=useRouter();
                         }}
                         className="bg-white/10 text-white placeholder-gray-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
                     />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => {
-                            setPassword(e.target.value);
-                            setError("");
-                        }}
-                        className="bg-white/10 text-white placeholder-gray-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    />
-                    <button className="bg-blue-500 hover:bg-blue-600 transition text-white py-3 rounded-xl font-medium" onClick={signin}>
-                        SignIN
-                    </button>
-
+                    <div className="relative w-full">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                                setError("");
+                            }}
+                            className="w-full bg-white/10 text-white placeholder-gray-300 p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        />
+                        <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-white"
+                        >
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </button>
+                    </div>
+                    <div className="flex justify-around w-[100%]">
+                        <button className="bg-blue-500 hover:bg-blue-600 transition text-white py-2 px-3 rounded-xl font-medium" onClick={signin}>
+                            SignIN
+                        </button>
+                        <button className="bg-blue-500 hover:bg-blue-600 transition text-white py-2 px-3 rounded-xl font-medium" onClick={singUP}>
+                            SignUP
+                        </button>
+                    </div>
                     {error && <p className="text-sm text-red-800 text-center">{error}</p>}
                 </div>
             </div>

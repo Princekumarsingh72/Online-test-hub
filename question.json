@@ -1,0 +1,102 @@
+[
+  {
+    "question": "What does CPU stand for?",
+    "optionA": "Central Process Unit",
+    "optionB": "Central Processing Unit",
+    "optionC": "Computer Processing Unit",
+    "optionD": "Control Processing Unit",
+    "correctAnswer": "B",
+    "difficulty": "Easy",
+    "topic": "Computer Organization"
+  },
+  {
+    "question": "Which HTML tag is used to create a hyperlink?",
+    "optionA": "<a>",
+    "optionB": "<link>",
+    "optionC": "<href>",
+    "optionD": "<url>",
+    "correctAnswer": "A",
+    "difficulty": "Easy",
+    "topic": "HTML"
+  },
+  {
+    "question": "Which SQL clause is used to filter records after grouping?",
+    "optionA": "WHERE",
+    "optionB": "ORDER BY",
+    "optionC": "HAVING",
+    "optionD": "GROUP BY",
+    "correctAnswer": "C",
+    "difficulty": "Medium",
+    "topic": "DBMS"
+  },
+  {
+    "question": "Which scheduling algorithm can cause starvation?",
+    "optionA": "Round Robin",
+    "optionB": "FCFS",
+    "optionC": "Priority Scheduling",
+    "optionD": "FIFO",
+    "correctAnswer": "C",
+    "difficulty": "Medium",
+    "topic": "Operating System"
+  },
+  {
+    "question": "Which protocol is responsible for assigning IP addresses dynamically?",
+    "optionA": "DNS",
+    "optionB": "DHCP",
+    "optionC": "ARP",
+    "optionD": "ICMP",
+    "correctAnswer": "B",
+    "difficulty": "Easy",
+    "topic": "Computer Networks"
+  },
+  {
+    "question": "Which data structure follows the LIFO principle?",
+    "optionA": "Queue",
+    "optionB": "Stack",
+    "optionC": "Tree",
+    "optionD": "Graph",
+    "correctAnswer": "B",
+    "difficulty": "Easy",
+    "topic": "Data Structures"
+  },
+  {
+    "question": "Which sorting algorithm has the best average-case time complexity among the following?",
+    "optionA": "Bubble Sort",
+    "optionB": "Selection Sort",
+    "optionC": "Merge Sort",
+    "optionD": "Insertion Sort",
+    "correctAnswer": "C",
+    "difficulty": "Medium",
+    "topic": "Algorithms"
+  },
+  {
+    "question": "What is the output of the expression '5' + 2 in JavaScript?",
+    "optionA": "7",
+    "optionB": "52",
+    "optionC": "Error",
+    "optionD": "undefined",
+    "correctAnswer": "B",
+    "difficulty": "Easy",
+    "topic": "JavaScript"
+  },
+  {
+    "question": "Which normal form eliminates transitive dependency?",
+    "optionA": "1NF",
+    "optionB": "2NF",
+    "optionC": "3NF",
+    "optionD": "BCNF",
+    "correctAnswer": "C",
+    "difficulty": "Hard",
+    "topic": "DBMS"
+  },
+  {
+    "question": "Which algorithm is used to find the shortest path in a graph with non-negative edge weights?",
+    "optionA": "Prim's Algorithm",
+    "optionB": "Kruskal's Algorithm",
+    "optionC": "Dijkstra's Algorithm",
+    "optionD": "Depth First Search",
+    "correctAnswer": "C",
+    "difficulty": "Hard",
+    "topic": "Algorithms"
+  }
+]

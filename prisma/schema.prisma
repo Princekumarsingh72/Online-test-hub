@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -12,170 +7,165 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Role {
-  STUDENT
-  ADMIN
+model performance {
+  id         Int     @id @default(autoincrement())
+  userId     Int
+  subjectId  Int
+  totalTests Int
+  avgScore   Float
+  subject    subject @relation(fields: [subjectId], references: [id], map: "Performance_subjectId_fkey")
+  user       user    @relation(fields: [userId], references: [id], map: "Performance_userId_fkey")
+
+  @@index([subjectId], map: "Performance_subjectId_fkey")
+  @@index([userId], map: "Performance_userId_fkey")
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  password  String
-  role      Role     @default(STUDENT)
-
-  createdAt DateTime @default(now())
-
-  questions       Question[]
-  tests           Test[]
-  attempts        TestAttempt[]
-  performances    Performance[]
-}
-
-model Subject {
-  id        Int      @id @default(autoincrement())
-  name      String
-
-  questions Question[]
-  tests     Test[]
-  performance Performance[]
-}
-model Question {
-  id            Int      @id @default(autoincrement())
+model question {
+  id            Int                    @id @default(autoincrement())
   question      String
-
   optionA       String
   optionB       String
   optionC       String
   optionD       String
-
-  correctOption Option
-
-  difficulty    Difficulty
-
-  // Optional default marks
-  defaultMarks  Int?     
-
+  correctOption question_correctOption
+  difficulty    question_difficulty
+  defaultMarks  Int?
   subjectId     Int
-  subject       Subject  @relation(fields: [subjectId], references: [id])
-
   createdById   Int
-  createdBy     User     @relation(fields: [createdById], references: [id])
+  createdAt     DateTime               @default(now())
+  topic         String?
+  user          user                   @relation(fields: [createdById], references: [id], map: "Question_createdById_fkey")
+  subject       subject                @relation(fields: [subjectId], references: [id], map: "Question_subjectId_fkey")
+  studentanswer studentanswer[]
+  testquestion  testquestion[]
 
-  testQuestions TestQuestion[]
-  answers       StudentAnswer[]
-
-  createdAt     DateTime @default(now())
+  @@index([createdById], map: "Question_createdById_fkey")
+  @@index([subjectId], map: "Question_subjectId_fkey")
 }
-enum Option {
+
+model result {
+  id             Int         @id @default(autoincrement())
+  attemptId      Int         @unique(map: "Result_attemptId_key")
+  totalQuestions Int
+  correctAnswers Int
+  wrongAnswers   Int
+  score          Int
+  percentage     Float
+  createdAt      DateTime    @default(now())
+  testattempt    testattempt @relation(fields: [attemptId], references: [id], map: "Result_attemptId_fkey")
+}
+
+model studentanswer {
+  id             Int                           @id @default(autoincrement())
+  attemptId      Int
+  questionId     Int
+  selectedOption studentanswer_selectedOption?
+  isCorrect      Boolean
+  createdAt      DateTime                      @default(now())
+  testattempt    testattempt                   @relation(fields: [attemptId], references: [id], onDelete: Cascade, map: "StudentAnswer_attemptId_fkey")
+  question       question                      @relation(fields: [questionId], references: [id], map: "StudentAnswer_questionId_fkey")
+
+  @@index([attemptId], map: "StudentAnswer_attemptId_fkey")
+  @@index([questionId], map: "StudentAnswer_questionId_fkey")
+}
+
+model subject {
+  id          Int           @id @default(autoincrement())
+  name        String
+  performance performance[]
+  question    question[]
+  test        test[]
+}
+
+model test {
+  id            Int            @id @default(autoincrement())
+  title         String
+  description   String?
+  duration      Int
+  totalMarks    Int
+  startTime     DateTime
+  endTime       DateTime
+  subjectId     Int
+  createdById   Int
+  createdAt     DateTime       @default(now())
+  noOfQuestions Int
+  user          user           @relation(fields: [createdById], references: [id], map: "Test_createdById_fkey")
+  subject       subject        @relation(fields: [subjectId], references: [id], map: "Test_subjectId_fkey")
+  testattempt   testattempt[]
+  testquestion  testquestion[]
+
+  @@index([createdById], map: "Test_createdById_fkey")
+  @@index([subjectId], map: "Test_subjectId_fkey")
+}
+
+model testattempt {
+  id            Int                @id @default(autoincrement())
+  userId        Int
+  testId        Int
+  startTime     DateTime
+  endTime       DateTime?
+  status        testattempt_status @default(IN_PROGRESS)
+  createdAt     DateTime           @default(now())
+  result        result?
+  studentanswer studentanswer[]
+  test          test               @relation(fields: [testId], references: [id], map: "TestAttempt_testId_fkey")
+  user          user               @relation(fields: [userId], references: [id], map: "TestAttempt_userId_fkey")
+
+  @@index([testId], map: "TestAttempt_testId_fkey")
+  @@index([userId], map: "TestAttempt_userId_fkey")
+}
+
+model testquestion {
+  id         Int      @id @default(autoincrement())
+  testId     Int
+  questionId Int
+  marks      Int
+  question   question @relation(fields: [questionId], references: [id], map: "TestQuestion_questionId_fkey")
+  test       test     @relation(fields: [testId], references: [id], onDelete: Cascade, map: "TestQuestion_testId_fkey")
+
+  @@unique([testId, questionId], map: "TestQuestion_testId_questionId_key")
+  @@index([questionId], map: "TestQuestion_questionId_fkey")
+}
+
+model user {
+  id          Int           @id @default(autoincrement())
+  name        String
+  email       String        @unique(map: "User_email_key")
+  password    String
+  role        user_role     @default(STUDENT)
+  createdAt   DateTime      @default(now())
+  performance performance[]
+  question    question[]
+  test        test[]
+  testattempt testattempt[]
+}
+
+enum studentanswer_selectedOption {
   A
   B
   C
   D
 }
 
-enum Difficulty {
-  EASY
-  MEDIUM
-  HARD
+enum user_role {
+  STUDENT
+  ADMIN
 }
-model Test {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String?
 
-  duration    Int      // in minutes
-  totalMarks  Int
-
-  startTime   DateTime
-  endTime     DateTime
-
-  subjectId   Int
-  subject     Subject  @relation(fields: [subjectId], references: [id])
-
-  createdById Int
-  createdBy   User     @relation(fields: [createdById], references: [id])
-
-  testQuestions TestQuestion[]
-  attempts      TestAttempt[]
-
-  createdAt   DateTime @default(now())
-}
-model TestQuestion {
-  id         Int @id @default(autoincrement())
-
-  testId     Int
-  test       Test @relation(fields: [testId], references: [id], onDelete: Cascade)
-
-  questionId Int
-  question   Question @relation(fields: [questionId], references: [id])
-
-  // FINAL marks used in this test
-  marks      Int
-
-  @@unique([testId, questionId])
-}
-model TestAttempt {
-  id        Int      @id @default(autoincrement())
-
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id])
-
-  testId    Int
-  test      Test     @relation(fields: [testId], references: [id])
-
-  startTime DateTime
-  endTime   DateTime?
-
-  status    AttemptStatus @default(IN_PROGRESS)
-
-  answers   StudentAnswer[]
-  result    Result?
-
-  createdAt DateTime @default(now())
-}
-enum AttemptStatus {
+enum testattempt_status {
   IN_PROGRESS
   COMPLETED
 }
-model StudentAnswer {
-  id          Int @id @default(autoincrement())
 
-  attemptId   Int
-  attempt     TestAttempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
-
-  questionId  Int
-  question    Question @relation(fields: [questionId], references: [id])
-
-  selectedOption Option
-  isCorrect      Boolean
-
-  createdAt   DateTime @default(now())
+enum question_correctOption {
+  A
+  B
+  C
+  D
 }
-model Result {
-  id              Int @id @default(autoincrement())
 
-  attemptId       Int @unique
-  attempt         TestAttempt @relation(fields: [attemptId], references: [id])
-
-  totalQuestions  Int
-  correctAnswers  Int
-  wrongAnswers    Int
-
-  score           Int
-  percentage      Float
-
-  createdAt       DateTime @default(now())
-}
-model Performance {
-  id         Int @id @default(autoincrement())
-
-  userId     Int
-  user       User @relation(fields: [userId], references: [id])
-
-  subjectId  Int
-  subject    Subject @relation(fields: [subjectId], references: [id])
-
-  totalTests Int
-  avgScore   Float
+enum question_difficulty {
+  EASY
+  MEDIUM
+  HARD
 }

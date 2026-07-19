@@ -31,6 +31,7 @@ CREATE TABLE `Test` (
     `description` VARCHAR(191) NULL,
     `duration` INTEGER NOT NULL,
     `totalMarks` INTEGER NOT NULL,
+    `noOfQuestions` INTEGER NOT NULL,
     `startTime` DATETIME(3) NOT NULL,
     `endTime` DATETIME(3) NOT NULL,
     `subjectId` INTEGER NOT NULL,

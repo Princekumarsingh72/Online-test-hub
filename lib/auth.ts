@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
-
+import { jwtVerify } from "jose";
 const JWT_SECRET=process.env.JWT_SECRET!;
 
 export async function hashPassword(password: string) {
@@ -21,9 +21,22 @@ export function createToken(payload:any) {
   });
 }
 
-export const verifyToken=(token:string)=>{
-  jwt.verify(token,JWT_SECRET);
-}
+
+const secret = new TextEncoder().encode(
+  process.env.JWT_SECRET
+);
+
+export const verifyToken = async (
+  token: string
+) => {
+
+  const { payload } = await jwtVerify(
+    token,
+  secret
+  );
+
+  return payload;
+};
 
 
 export const verifyAdmin =async () => {

@@ -1,14 +1,14 @@
 "use client"
-import Image from "next/image";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import SignupPage from "./auth/signup/page";
+import GetAllUsers from "./user/student/dashboard/page";
 
 export default function Home() {
-  const router=useRouter();
- useEffect(() => {
-    setTimeout(() => {
-      router.push("/auth/signup");
-    }, 2000); // 2 sec
-  }, []);
-  return null;
+
+  return (
+    <div>
+           
+      <SignupPage/>
+      
+    </div>
+  );
 }
