@@ -49,6 +49,7 @@ model result {
   totalQuestions Int
   correctAnswers Int
   wrongAnswers   Int
+  unattemptedQuestions  Int @default(0)
   score          Int
   percentage     Float
   createdAt      DateTime    @default(now())

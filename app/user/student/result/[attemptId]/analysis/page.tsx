@@ -56,12 +56,13 @@ export default function ResultPage() {
 
       <div className="border rounded-lg p-5 shadow">
         <h2 className="text-xl font-semibold">
-          {result.attempt.test.title}
+          {result.testattempt.test.title}
         </h2>
 
         <p>Total Questions: {result.totalQuestions}</p>
         <p>Correct: {result.correctAnswers}</p>
         <p>Wrong: {result.wrongAnswers}</p>
+        <p>Unattempted: {result.unattemptedQuestions}</p>
         <p>Score: {result.score}</p>
         <p>Percentage: {result.percentage}%</p>
       </div>
@@ -70,7 +71,7 @@ export default function ResultPage() {
         Question Analysis
       </h2>
 
-      {result.attempt.answers.map((ans: any, index: number) => (
+      {result.testattempt.studentanswer.map((ans: any, index: number) => (
         <div
           key={ans.id}
           className="border rounded-lg p-4 mb-4 shadow"
@@ -102,10 +103,18 @@ export default function ResultPage() {
             </p>
 
             <p
-              className={`font-bold ${ans.isCorrect ? "text-green-600" : "text-red-600"
+              className={`font-bold ${!ans.selectedOption
+                  ? "text-yellow-600"
+                  : ans.isCorrect
+                    ? "text-green-600"
+                    : "text-red-600"
                 }`}
             >
-              {ans.isCorrect ? "✅ Correct" : "❌ Wrong"}
+              {!ans.selectedOption
+                ? "⚪ Unattempted"
+                : ans.isCorrect
+                  ? "✅ Correct"
+                  : "❌ Wrong"}
             </p>
           </div>
         </div>

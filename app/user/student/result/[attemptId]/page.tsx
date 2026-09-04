@@ -78,25 +78,37 @@ export default function ResultPage() {
 
       <div className=" flex bg-white/10 backdrop-blur-lg gap-5 rounded-3xl border border-white/20 p-8">
 
-        <div className="w-[100%] bg-red-600 rounded-xl p-5 text-center">
-          <h2 className="text-3xl font-bold">
-            {result.wrongAnswers}
-          </h2>
-          <p>Wrong</p>
-        </div>
-
-        <div className="w-[100%] bg-yellow-500 rounded-xl p-5 text-center">
+        <div className="w-[100%] bg-yellow-600 rounded-xl p-5 text-center">
           <h2 className="text-3xl font-bold">
             {result.totalQuestions}
           </h2>
           <p>Total</p>
         </div>
 
+        <div className="w-[100%] bg-red-500 rounded-xl p-5 text-center">
+          <h2 className="text-3xl font-bold">
+            {result.wrongAnswers}
+          </h2>
+          <p>Wrong</p>
+        </div>
+        <div className="w-[100%] bg-green-500 rounded-xl p-5 text-center">
+          <h2 className="text-3xl font-bold">
+            {result.correctAnswers}
+          </h2>
+          <p>correct</p>
+        </div>
+        <div className="w-[100%] bg-white rounded-xl p-5 text-center">
+          <h2 className="text-3xl font-bold">
+            {result.unattemptedQuestions}
+          </h2>
+          <p>unattemp</p>
+        </div>
+
         <div className="w-[100%] bg-blue-600 rounded-xl p-5 text-center">
           <h2 className="text-3xl font-bold">
             {result.score}
           </h2>
-          <p>Score</p>
+          <p>Marks</p>
         </div>
 
       </div>

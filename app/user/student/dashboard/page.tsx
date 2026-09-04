@@ -36,7 +36,7 @@ finally{
     if(loading){
         return (<Loader/>)
     }
-
+console.log(tests);
     return (
         <div className="min-h-screen bg-[#0f172a] flex flex-col  relative overflow-hidden text-white">
             
@@ -55,7 +55,10 @@ finally{
                                     Subject : {test.subject}
                                 </p>
                                 <p>
-                                    Questions : {test.totalQuestions}
+                                    Questions : {test.testquestion}
+                                </p>
+                                <p>
+                                    Duration : {test.duration} min
                                 </p>
                                 <button
                                     onClick={() => router.push(`/user/student/test/${test.id}`)}

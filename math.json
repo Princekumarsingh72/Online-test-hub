@@ -1,0 +1,202 @@
+[
+  {
+    "question": "Which formula is used to calculate the percentage of a quantity?",
+    "optionA": "(Part / Whole) × 100",
+    "optionB": "(Whole / Part) × 100",
+    "optionC": "(Part + Whole) × 100",
+    "optionD": "(Whole - Part) × 100",
+    "correctAnswer": "A",
+    "difficulty": "Easy",
+    "topic": "Percentage"
+  },
+  {
+    "question": "What is the formula to find the percentage increase from an original value to a new value?",
+    "optionA": "((Original - New) / Original) × 100",
+    "optionB": "((New - Original) / Original) × 100",
+    "optionC": "((New - Original) / New) × 100",
+    "optionD": "(New / Original) × 100",
+    "correctAnswer": "B",
+    "difficulty": "Easy",
+    "topic": "Percentage Increase"
+  },
+  {
+    "question": "What is the formula to calculate percentage decrease?",
+    "optionA": "((Original - New) / Original) × 100",
+    "optionB": "((New - Original) / Original) × 100",
+    "optionC": "((Original - New) / New) × 100",
+    "optionD": "(New / Original) × 100",
+    "correctAnswer": "A",
+    "difficulty": "Easy",
+    "topic": "Percentage Decrease"
+  },
+  {
+    "question": "If a number is increased by x%, what is the formula for the new value?",
+    "optionA": "Original × (1 - x/100)",
+    "optionB": "Original × (1 + x/100)",
+    "optionC": "Original × x/100",
+    "optionD": "Original + x",
+    "correctAnswer": "B",
+    "difficulty": "Easy",
+    "topic": "Percentage Increase"
+  },
+  {
+    "question": "If a number is decreased by x%, what is the formula for the new value?",
+    "optionA": "Original × (1 + x/100)",
+    "optionB": "Original × x/100",
+    "optionC": "Original × (1 - x/100)",
+    "optionD": "Original + x/100",
+    "correctAnswer": "C",
+    "difficulty": "Easy",
+    "topic": "Percentage Decrease"
+  },
+  {
+    "question": "If x% of a number is equal to A, which formula gives the original number?",
+    "optionA": "A × x/100",
+    "optionB": "A × 100/x",
+    "optionC": "A/x × 100",
+    "optionD": "A + x",
+    "correctAnswer": "B",
+    "difficulty": "Easy",
+    "topic": "Percentage"
+  },
+  {
+    "question": "If A is x% of B, which formula represents this relationship?",
+    "optionA": "A = B × x/100",
+    "optionB": "A = B × 100/x",
+    "optionC": "B = A × x/100",
+    "optionD": "A + B = x/100",
+    "correctAnswer": "A",
+    "difficulty": "Easy",
+    "topic": "Percentage"
+  },
+  {
+    "question": "A number is increased by a% and then by b%. What is the formula for the net percentage increase?",
+    "optionA": "a + b",
+    "optionB": "a + b - ab/100",
+    "optionC": "a + b + ab/100",
+    "optionD": "a × b",
+    "correctAnswer": "C",
+    "difficulty": "Medium",
+    "topic": "Successive Percentage"
+  },
+  {
+    "question": "A number is decreased by a% and then decreased by b%. What is the formula for the total percentage decrease?",
+    "optionA": "a + b",
+    "optionB": "a + b - ab/100",
+    "optionC": "a + b + ab/100",
+    "optionD": "a × b/100",
+    "correctAnswer": "B",
+    "difficulty": "Medium",
+    "topic": "Successive Percentage"
+  },
+  {
+    "question": "A number is increased by a% and then decreased by b%. What is the net percentage change?",
+    "optionA": "a - b + ab/100",
+    "optionB": "a + b - ab/100",
+    "optionC": "a - b - ab/100",
+    "optionD": "a + b + ab/100",
+    "correctAnswer": "C",
+    "difficulty": "Medium",
+    "topic": "Successive Percentage"
+  },
+  {
+    "question": "If a number is increased by x%, by what percentage must it be decreased to return to its original value?",
+    "optionA": "x%",
+    "optionB": "x/(100+x) × 100%",
+    "optionC": "x/(100-x) × 100%",
+    "optionD": "100/x%",
+    "correctAnswer": "B",
+    "difficulty": "Medium",
+    "topic": "Reverse Percentage"
+  },
+  {
+    "question": "If a number is decreased by x%, by what percentage must it be increased to return to its original value?",
+    "optionA": "x/(100+x) × 100%",
+    "optionB": "x%",
+    "optionC": "x/(100-x) × 100%",
+    "optionD": "100/x%",
+    "correctAnswer": "C",
+    "difficulty": "Medium",
+    "topic": "Reverse Percentage"
+  },
+  {
+    "question": "If A is x% more than B, then by what percentage is B less than A?",
+    "optionA": "x%",
+    "optionB": "x/(100+x) × 100%",
+    "optionC": "x/(100-x) × 100%",
+    "optionD": "(100+x)/x × 100%",
+    "correctAnswer": "B",
+    "difficulty": "Medium",
+    "topic": "Comparison Percentage"
+  },
+  {
+    "question": "If A is x% less than B, then by what percentage is B more than A?",
+    "optionA": "x%",
+    "optionB": "x/(100+x) × 100%",
+    "optionC": "x/(100-x) × 100%",
+    "optionD": "(100-x)/x × 100%",
+    "correctAnswer": "C",
+    "difficulty": "Medium",
+    "topic": "Comparison Percentage"
+  },
+  {
+    "question": "If the price of a commodity increases by x%, by what percentage should consumption decrease to keep expenditure unchanged?",
+    "optionA": "x/(100+x) × 100%",
+    "optionB": "x/(100-x) × 100%",
+    "optionC": "x%",
+    "optionD": "100/x%",
+    "correctAnswer": "A",
+    "difficulty": "Hard",
+    "topic": "Percentage and Expenditure"
+  },
+  {
+    "question": "If the price of a commodity decreases by x%, by what percentage can consumption increase while keeping expenditure unchanged?",
+    "optionA": "x/(100+x) × 100%",
+    "optionB": "x/(100-x) × 100%",
+    "optionC": "x%",
+    "optionD": "100/x%",
+    "correctAnswer": "B",
+    "difficulty": "Hard",
+    "topic": "Percentage and Expenditure"
+  },
+  {
+    "question": "If a person's income increases by x% and expenditure increases by y%, which formula can be used to calculate the percentage change in savings when original income and expenditure are known?",
+    "optionA": "New Savings = New Income - New Expenditure",
+    "optionB": "New Savings = Original Income + Original Expenditure",
+    "optionC": "New Savings = Original Savings × (x+y)/100",
+    "optionD": "New Savings = Original Income × x/100",
+    "correctAnswer": "A",
+    "difficulty": "Hard",
+    "topic": "Income Expenditure"
+  },
+  {
+    "question": "If a student scores x% marks and fails by A marks, while another student scores y% marks and passes by B marks, which formula gives the maximum marks?",
+    "optionA": "(A + B) / (y - x) × 100",
+    "optionB": "(A - B) / (y + x) × 100",
+    "optionC": "(A + B) × (y - x) / 100",
+    "optionD": "(y - x) / (A + B) × 100",
+    "correctAnswer": "A",
+    "difficulty": "Hard",
+    "topic": "Percentage and Marks"
+  },
+  {
+    "question": "If a number is first increased by x% and then decreased by x%, what is the formula for the net percentage change?",
+    "optionA": "0%",
+    "optionB": "x²/100% increase",
+    "optionC": "x²/100% decrease",
+    "optionD": "2x%",
+    "correctAnswer": "C",
+    "difficulty": "Medium",
+    "topic": "Successive Percentage"
+  },
+  {
+    "question": "What is the general formula for converting a fraction into a percentage?",
+    "optionA": "Fraction × 100",
+    "optionB": "Fraction / 100",
+    "optionC": "100 / Fraction",
+    "optionD": "Fraction + 100",
+    "correctAnswer": "A",
+    "difficulty": "Easy",
+    "topic": "Percentage Conversion"
+  }
+]

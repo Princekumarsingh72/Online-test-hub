@@ -16,6 +16,7 @@ const data = tests.map((test:any) => ({
   title: test.title,
   subject: test.subject.name,
   testquestion: test.testquestion.length,
+  duration: test.duration,
 }));
 
     return NextResponse.json(data);

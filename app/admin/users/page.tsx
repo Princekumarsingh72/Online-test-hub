@@ -15,10 +15,10 @@ export default function Users() {
     }, []);
 
     return (
-        <div className="min-h-screen bg-[#0f172a] flex flex-col relative overflow-hidden text-white">
+        <div className="min-h-screen bg-[#0f172a] flex  flex-col relative overflow-hidden text-white">
 
-            <h1>USER</h1>
-            <table>
+            <h1 className="flex justify-center my-5 font-bold">USER</h1>
+            <table className="mx-5">
                 <thead>
                     <tr>
                         <th className="border-2">ID</th>

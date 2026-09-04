@@ -54,18 +54,18 @@ export default function Test() {
 
     return (
         <div className="min-h-screen bg-[#0f172a] flex flex-col relative overflow-hidden text-white">
-            <h1 className="font-23px">Add Test</h1>
-            <div className=" flex  justify-center items-center w-[100%">
+            <h1 className="font-23px flex justify-center my-5 font-bold">Add Test</h1>
+            <div className=" flex  justify-around items-center w-[100%] gap-3 mb-5">
                 <input
-                    className="border-1 w-[90%]"
+                    className="border-1 "
                     value={title} placeholder="Title" onChange={(e) => setTitle(e.target.value)}
                 />
                 <input
-                    className="border-1 w-[90%]"
+                    className="border-1 "
                     value={duration} placeholder="Duration" type="int" onChange={(e) => setDuration(e.target.value)}
                 />
                 <input
-                    className="border-1 w-[90%]"
+                    className="border-1 "
                     value={noOfQuestion} placeholder="Number Of Questions" onChange={(e) => setNoOfQuestion(e.target.value)}
                 />
 
@@ -75,13 +75,13 @@ export default function Test() {
                 >
                     <option>Select Subject</option>
                     {subject.map((sub, index) => (
-                        <option className="text-black" key={sub.id} value={sub.id}>{sub.id}{sub.name}</option>
+                        <option className="text-black" key={sub.id} value={sub.id}>{sub.id}. {sub.name}</option>
                     ))}
                 </select>
-                <button className="bg-blue-500 px-3 py-2" onClick={test}>Add</button>
+                <button className="bg-blue-500 px-3 py-2 rounded-xl" onClick={test}>Add</button>
             </div>
             <p>{error}</p>
-            <table  className="text-white">
+            <table  className="text-white mx-5">
             <thead>
                 <tr>
                     <th className="border-2 ">Title</th>

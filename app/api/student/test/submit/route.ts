@@ -47,6 +47,7 @@ export async function POST(req: NextRequest) {
 
     let correctAnswers = 0;
     let wrongAnswers = 0;
+    let unattemptedQuestions = 0;
     let score = 0;
 
     // Save every answer
@@ -55,6 +56,25 @@ export async function POST(req: NextRequest) {
 
       // Student selected option
       const selectedOption = answers[question.id];
+
+      if (
+        selectedOption === undefined ||
+        selectedOption === null ||
+        selectedOption === ""
+      ) {
+        unattemptedQuestions++;
+
+        await db.studentanswer.create({
+          data: {
+            attemptId: attempt.id,
+            questionId: question.id,
+            selectedOption: null,
+            isCorrect: false,
+          },
+        });
+
+        continue;
+      }
 
       const isCorrect =
         selectedOption === question.correctOption;
@@ -90,6 +110,7 @@ export async function POST(req: NextRequest) {
         totalQuestions,
         correctAnswers,
         wrongAnswers,
+        unattemptedQuestions,
         score,
         percentage,
       },
